@@ -30,7 +30,7 @@ public class WordMan {
     public void levelCall() throws IOException {
 
     }
-
+    // menu 창 출력
     public void menuList() throws IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 
