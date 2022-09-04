@@ -68,7 +68,7 @@ public class WordCRUD{
         for(int i=0; i<wordGroup.size(); i++) {
             int stars = wordGroup.get(i).getLevel();
             if(level == stars) { // 현재 순서의 단어 레벨과 필터링 레벨이 같을 경우
-                for(int j=0; j<level; j++)
+                for(int j=0; j<level; j++) // 지정된 레벨만큼 별 개수 출력
                     System.out.print("*");
                 System.out.print("   " + wordGroup.get(i).getWord() + "   ");
                 System.out.println(wordGroup.get(i).getDef());
