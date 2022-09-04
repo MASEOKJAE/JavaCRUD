@@ -76,4 +76,20 @@ public class WordCRUD{
         }
         System.out.println();
     }
+    // 검색한 단어를 찾는 메소드
+    public int listFind(String find) {
+        int findCheck = 0; // 검색한 단어를 찾으면 1로 값을 변
+        for(int i=0; i<wordGroup.size(); i++) {
+            String wordNow = wordGroup.get(i).getWord();
+            if(find.equals(wordNow.toUpperCase())) { // 검색한 단어와 현재 단어가 같음
+                for(int j=0; j<wordGroup.get(i).getLevel(); j++) // 수준만큼 *을 출력
+                    System.out.print("*");
+                System.out.print("    " + wordNow + "   ");
+                System.out.println(wordGroup.get(i).getDef());
+                findCheck = 1; // 단어를 발견했으니 1로 변경
+            }
+        }
+        System.out.println();
+        return findCheck;
+    }
 }

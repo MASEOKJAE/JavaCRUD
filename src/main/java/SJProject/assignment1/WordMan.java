@@ -6,32 +6,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class WordMan {
-//    private ArrayList<Word> wordGroup = new ArrayList<>();
     public WordMan() {
         System.out.println("입장 완료!!");
     }
-
+    // 메뉴 리스트로 접근하게 해주는 메소드
     public void ManStart() throws IOException{
         menuList();
     }
-
-    public int update() throws IOException {
-        WordCRUD cre = new WordCRUD();
-        int judge = cre.create();
+    // 새로운 단어를 업데이트하게 해주는 메소드
+    public int update(WordCRUD crud) throws IOException {
+        int judge = crud.create();
 
         return judge;
     }
-
+    // 기존에 있는 단어를 삭제해주는 메소드
     public int delete() throws IOException {
 
         return 0;
     }
-    public void levelCall() throws IOException {
-
-    }
     // menu 창 출력
     public void menuList() throws IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        WordCRUD crud = new WordCRUD(); // wordCRUD 접근을 위한 객체 생성
 
         while(true) {
             System.out.println("*** 영단어 마스터 ***\n");
@@ -54,18 +50,21 @@ public class WordMan {
                 break;
             } else if (menu == 1) {
                 System.out.println("--------------------");
-                WordCRUD all = new WordCRUD();
-                all.listAll();
+                crud.listAll();
             } else if (menu == 2) {
                 System.out.println("--------------------");
-                WordCRUD level = new WordCRUD();
                 System.out.print("원하는 수준을 입력하세요 -> ");
                 int stars = Integer.parseInt(bf.readLine());
-                level.listLevel(stars);
+                crud.listLevel(stars);
             } else if (menu == 3) {
-
+                System.out.println("--------------------");
+                System.out.print("찾고 싶은 단어를 입력하세요 -> ");
+                String find = bf.readLine();
+                int check = crud.listFind(find.toUpperCase());
+                if(check != 1) // check가 1이 아니면 찾는 단어가 존재하지 않는 것
+                    System.out.println("검색하신 단어가 존재하지 않습니다.\n");
             } else if (menu == 4) {
-                int check = update();
+                int check = update(crud);
                 if(check == 1)
                     System.out.println("새 단어가 단어장에 추가되었습니다.");
                 else
