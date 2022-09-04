@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class WordCRUD{
-    private static ArrayList<Word> wordGroup = new ArrayList<>();
+    private static ArrayList<Word> wordGroup = new ArrayList<>(); // 단어들을 관리할 단어장
     private String[] creatData = new String[3];
 
     public WordCRUD() {
@@ -16,14 +16,14 @@ public class WordCRUD{
     public String[] getCreatData() {
         return creatData;
     }
-    // Word class의 객체 형태로 단어들 하나씩 저장
+    // Word class의 객체로 단어들을 관리
     public void addList() {
         String[] data = new String[3]; // 3가지 데이터 저장
         data = getCreatData();
         Word wData = new Word(Integer.parseInt(data[0]), data[1], data[2]); // Word Class에 단어 정보 객체로 저장
         wordGroup.add(wData); // word 정보 입력 순서대로 객체로 저장
     }
-    // 단어 생성
+    // 새로운 단어 추가
     public int create() throws IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         System.out.print("난이도(1,2,3) & 새 단어 입력 : ");
@@ -32,7 +32,7 @@ public class WordCRUD{
 
         return 1;
     }
-    // 단어 level과 단어 입력
+
     public void levelWord() throws IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         String newLW = bf.readLine();
@@ -41,14 +41,14 @@ public class WordCRUD{
         creatData[1] = temp[1]; // word 저장
         meaning();
     }
-    // 단어 뜻 입력
+
     public void meaning() throws IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         System.out.print("뜻 입력 : ");
         String newMeaning = bf.readLine();
         creatData[2] = newMeaning;
     }
-    // 단어장에 담긴 모든 정보 출력
+    // 단어장에 있는 모든 단어들
     public void listAll() {
         for(int i=0; i<wordGroup.size(); i++) {
             int stars = wordGroup.get(i).getLevel();
@@ -63,16 +63,17 @@ public class WordCRUD{
         }
         System.out.println();
     }
-    // 지정한 난이도만 필터링 해서 단어장 정보 출력
+    // 선택한 수준으로 필터링 한 단어들
     public void listLevel(int level) {
         for(int i=0; i<wordGroup.size(); i++) {
             int stars = wordGroup.get(i).getLevel();
-            if(level == stars) { // 현재 순서의 단어 레벨과 필터링 레벨이 같을 경우
-                for(int j=0; j<level; j++) // 지정된 레벨만큼 별 개수 출력
+            if(stars == level) { // 선택한 수준과 현재 순서의 단어의 수준이 같음
+                for(int j=0; j<level; j++) // 수준만큼 *을 출력
                     System.out.print("*");
-                System.out.print("   " + wordGroup.get(i).getWord() + "   ");
+                System.out.print("    " + wordGroup.get(i).getWord() + "   ");
                 System.out.println(wordGroup.get(i).getDef());
             }
         }
+        System.out.println();
     }
 }

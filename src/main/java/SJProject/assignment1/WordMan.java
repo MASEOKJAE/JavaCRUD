@@ -26,7 +26,6 @@ public class WordMan {
 
         return 0;
     }
-
     public void levelCall() throws IOException {
 
     }
