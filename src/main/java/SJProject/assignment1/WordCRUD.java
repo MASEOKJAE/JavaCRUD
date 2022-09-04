@@ -16,14 +16,14 @@ public class WordCRUD{
     public String[] getCreatData() {
         return creatData;
     }
-
+    // Word class의 객체 형태로 단어들 하나씩 저장
     public void addList() {
         String[] data = new String[3]; // 3가지 데이터 저장
         data = getCreatData();
         Word wData = new Word(Integer.parseInt(data[0]), data[1], data[2]); // Word Class에 단어 정보 객체로 저장
         wordGroup.add(wData); // word 정보 입력 순서대로 객체로 저장
     }
-
+    // 단어 생성
     public int create() throws IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         System.out.print("난이도(1,2,3) & 새 단어 입력 : ");
@@ -32,7 +32,7 @@ public class WordCRUD{
 
         return 1;
     }
-
+    // 단어 level과 단어 입력
     public void levelWord() throws IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         String newLW = bf.readLine();
@@ -41,7 +41,7 @@ public class WordCRUD{
         creatData[1] = temp[1]; // word 저장
         meaning();
     }
-
+    // 단어 뜻 입력
     public void meaning() throws IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         System.out.print("뜻 입력 : ");
