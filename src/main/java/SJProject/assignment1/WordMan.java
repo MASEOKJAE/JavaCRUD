@@ -10,7 +10,7 @@ public class WordMan {
         System.out.println("입장 완료!!");
     }
     // 메뉴 리스트로 접근하게 해주는 메소드
-    public void ManStart() throws IOException{
+    public void ManStart() throws IOException {
         menuList();
     }
     // 새로운 단어를 업데이트하게 해주는 메소드
@@ -21,7 +21,6 @@ public class WordMan {
     }
     // 기존에 있는 단어를 삭제해주는 메소드
     public int delete() throws IOException {
-
         return 0;
     }
     // menu 창 출력

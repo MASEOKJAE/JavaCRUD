@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class WordCRUD{
+public class WordCRUD implements ICRUD {
     private static ArrayList<Word> wordGroup = new ArrayList<>(); // 단어들을 관리할 단어장
     private String[] creatData = new String[3];
 
