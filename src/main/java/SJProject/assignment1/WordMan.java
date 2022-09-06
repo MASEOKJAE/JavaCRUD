@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 public class WordMan {
     public WordMan() {
-        System.out.println("입장 완료!!");
     }
     // 메뉴 리스트로 접근하게 해주는 메소드
     public void ManStart() throws IOException {
@@ -45,23 +44,26 @@ public class WordMan {
             int menu = Integer.parseInt(bf.readLine()); // select 선택 받음
 
             if (menu == 0) {
-                System.out.println("단어 프로그렘을 종료하겠습니다.");
+                System.out.println("단어 프로그램을 종료하겠습니다.");
                 break;
             } else if (menu == 1) {
                 System.out.println("--------------------");
                 crud.listAll();
+                System.out.println("--------------------\n");
             } else if (menu == 2) {
-                System.out.println("--------------------");
                 System.out.print("원하는 수준을 입력하세요 -> ");
                 int stars = Integer.parseInt(bf.readLine());
-                crud.listLevel(stars);
-            } else if (menu == 3) {
                 System.out.println("--------------------");
+                crud.listLevel(stars);
+                System.out.println("--------------------\n");
+            } else if (menu == 3) {
                 System.out.print("찾고 싶은 단어를 입력하세요 -> ");
                 String find = bf.readLine();
+                System.out.println("--------------------");
                 int check = crud.listFind(find.toUpperCase());
                 if(check != 1) // check가 1이 아니면 찾는 단어가 존재하지 않는 것
-                    System.out.println("검색하신 단어가 존재하지 않습니다.\n");
+                    System.out.println("검색하신 단어가 존재하지 않습니다.");
+                System.out.println("--------------------\n");
             } else if (menu == 4) {
                 int check = update(crud);
                 if(check == 1)

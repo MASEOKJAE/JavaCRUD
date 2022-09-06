@@ -7,14 +7,14 @@ import java.util.ArrayList;
 
 public class WordCRUD implements ICRUD {
     private static ArrayList<Word> wordGroup = new ArrayList<>(); // 단어들을 관리할 단어장
-    private String[] creatData = new String[3];
+    private String[] createData; // 단어 새로 생성 시, [0] = 난이도 / [1] = 단어 이름 / [2] = 단어 의미
 
     public WordCRUD() {
-        System.out.println("WordCRUD에 입장!!");
+        createData = new  String[3];
     }
 
     public String[] getCreatData() {
-        return creatData;
+        return createData;
     }
     // Word class의 객체로 단어들을 관리
     public void addList() {
@@ -37,8 +37,8 @@ public class WordCRUD implements ICRUD {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         String newLW = bf.readLine();
         String[] temp = newLW.split(" "); // level과 word 분리
-        creatData[0] = temp[0]; // level 저장
-        creatData[1] = temp[1]; // word 저장
+        createData[0] = temp[0]; // level 저장
+        createData[1] = temp[1]; // word 저장
         meaning();
     }
 
@@ -46,7 +46,7 @@ public class WordCRUD implements ICRUD {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         System.out.print("뜻 입력 : ");
         String newMeaning = bf.readLine();
-        creatData[2] = newMeaning;
+        createData[2] = newMeaning;
     }
     // 단어장에 있는 모든 단어들
     public void listAll() {
@@ -61,7 +61,6 @@ public class WordCRUD implements ICRUD {
             System.out.print(wordGroup.get(i).getWord() + "   ");
             System.out.println(wordGroup.get(i).getDef());
         }
-        System.out.println();
     }
     // 선택한 수준으로 필터링 한 단어들
     public void listLevel(int level) {
@@ -74,7 +73,6 @@ public class WordCRUD implements ICRUD {
                 System.out.println(wordGroup.get(i).getDef());
             }
         }
-        System.out.println();
     }
     // 검색한 단어를 찾는 메소드
     public int listFind(String find) {
@@ -89,7 +87,6 @@ public class WordCRUD implements ICRUD {
                 findCheck = 1; // 단어를 발견했으니 1로 변경
             }
         }
-        System.out.println();
         return findCheck;
     }
 }
