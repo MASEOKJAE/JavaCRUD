@@ -1,8 +1,6 @@
 package SJProject.assignment1;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class WordMan {
@@ -10,17 +8,26 @@ public class WordMan {
     }
     // 메뉴 리스트로 접근하게 해주는 메소드
     public void ManStart() throws IOException {
+        loadfile();
         menuList();
+    }
+    public void loadfile() throws IOException {
+        int wordNum = 0; // 단어 개수 저장
+        File file = new File("wordList.txt");
+        if(file.exists()) {
+            BufferedReader inFile = new BufferedReader(new FileReader(file));
+            String line = null;
+            while( (line = inFile.readLine()) != null )
+                wordNum++;
+//                System.out.println(line); //읽어들인 문자열을 출력 합니다.
+        }
+        System.out.println("=> " + wordNum + "개의 단어 로딩이 완료되었습니다.\n");
     }
     // 새로운 단어를 업데이트하게 해주는 메소드
     public int update(WordCRUD crud) throws IOException {
         int judge = crud.create();
 
         return judge;
-    }
-    // 기존에 있는 단어를 삭제해주는 메소드
-    public int delete() throws IOException {
-        return 0;
     }
     // menu 창 출력
     public void menuList() throws IOException {
@@ -80,7 +87,7 @@ public class WordMan {
                 String find = bf.readLine();
                 crud.deleteManager(find.toUpperCase());
             } else if (menu == 7) {
-
+                crud.saveList();
             }
         }
 

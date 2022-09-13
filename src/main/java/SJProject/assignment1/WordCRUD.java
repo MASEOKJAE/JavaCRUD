@@ -1,8 +1,6 @@
 package SJProject.assignment1;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 
 public class WordCRUD implements ICRUD {
@@ -187,5 +185,32 @@ public class WordCRUD implements ICRUD {
             }
         } else // 단어 삭제 철회
             System.out.println("선택한 단어 삭제를 취소하셨습니다.\n");
+    }
+
+    public void saveList() {
+        File file = new File("wordList.txt");
+        BufferedWriter writer = null;
+        try {
+            writer = new BufferedWriter(new FileWriter(file));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        for(int i=0; i<wordGroup.size(); i++) {
+            try {
+                writer.write(wordGroup.get(i).getLevel());
+                writer.write("|");
+                writer.write(wordGroup.get(i).getWord());
+                writer.write("|");
+                writer.write(wordGroup.get(i).getDef());
+                writer.newLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            writer.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
