@@ -95,6 +95,52 @@ public class WordCRUD implements ICRUD {
         return findCheck;
     }
 
+    public void modifyManager(String find) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        int findCheck = 0, num = 1; // 검색한 단어를 찾으면 1로 값을 변환, 검색된 단어 순서
+        System.out.println("--------------------");
+        for (int i = 0; i < wordGroup.size(); i++) {
+            String wordNow = wordGroup.get(i).getWord();
+            if (wordNow.toUpperCase().contains(find)) { // 검색한 단어와 현재 단어가 같음
+                System.out.print(num + " "); // 저장된 순서대로 번호 출력
+                for (int j = 0; j < wordGroup.get(i).getLevel(); j++) // 수준만큼 *을 출력
+                    System.out.print("*");
+                System.out.print("    " + wordNow + "   ");
+                System.out.println(wordGroup.get(i).getDef());
+                findCheck = 1; // 단어를 발견했으니 1로 변경
+                num++;
+            }
+        }
+        System.out.println("--------------------");
+        if(findCheck == 1) { // 검색한 단어가 1개 이상 발견
+            System.out.print("수정할 번호 선택 -> ");
+            int modifyNum = Integer.parseInt(bf.readLine());
+
+            modifyWorker(modifyNum, find); // 실질적으로 단어를 수정하는 함수 호출
+        } else // 검색한 단어와 일치하는 정보가 없음
+            System.out.println("검색하신 단어가 존재하지 않습니다.\n");
+    }
+
+    // 단어 정보를 실질적으로 삭제하는 작업자
+    public void modifyWorker(int location, String find) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        int num = 1; // 검색된 단어 순서
+        for(int i = 0; i < wordGroup.size(); i++) {
+            String wordNow = wordGroup.get(i).getWord();
+            if (wordNow.toUpperCase().contains(find)) { // 검색한 단어와 현재 단어가 같음
+                if(num == location) {
+                    System.out.print("수정할 뜻 입력: ");
+                    String mdMean = bf.readLine(); // 수정할 뜻 mdMean에 입력
+                    wordGroup.get(i).setDef(mdMean); // 선택한 번호에 해당하는 단어 수정
+                    System.out.println("선택한 단어 수정이 완료되었습니다.\n");
+                    break;
+                }
+                else
+                    num++;
+            }
+        }
+    }
+
     // 단어 정보 삭제를 지시하는 메니저
     public void deleteManager(String find) throws IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
@@ -112,7 +158,7 @@ public class WordCRUD implements ICRUD {
                 num++;
             }
         }
-        System.out.println("--------------------\n");
+        System.out.println("--------------------");
         if(findCheck == 1) { // 검색한 단어가 1개 이상 발견
             System.out.print("삭제할 번호 선택 -> ");
             int deleteNum = Integer.parseInt(bf.readLine());
@@ -120,7 +166,7 @@ public class WordCRUD implements ICRUD {
             String confirm = bf.readLine();
             deleteWorker(deleteNum, find, confirm.toUpperCase()); // 실질적으로 단어를 삭제하는 함수 호출
         } else // 검색한 단어와 일치하는 정보가 없음
-            System.out.println("검색하신 단어가 존재하지 않습니다.");
+            System.out.println("검색하신 단어가 존재하지 않습니다.\n");
     }
 
     // 단어 정보를 실질적으로 삭제하는 작업자
@@ -132,7 +178,7 @@ public class WordCRUD implements ICRUD {
                 if (wordNow.toUpperCase().contains(find)) { // 검색한 단어와 현재 단어가 같음
                     if(num == location) {
                         wordGroup.remove(i); // 선택한 번호에 해당하는 단어 삭제
-                        System.out.println("선택한 단어 삭제가 완료되었습니다.");
+                        System.out.println("선택한 단어 삭제가 완료되었습니다.\n");
                         break;
                     }
                     else
@@ -140,6 +186,6 @@ public class WordCRUD implements ICRUD {
                 }
             }
         } else // 단어 삭제 철회
-            System.out.println("선택한 단어 삭제를 취소하셨습니다.");
+            System.out.println("선택한 단어 삭제를 취소하셨습니다.\n");
     }
 }

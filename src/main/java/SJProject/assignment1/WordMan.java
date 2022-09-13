@@ -72,7 +72,9 @@ public class WordMan {
                     System.out.println("잘못된 접근입니다.");
                 System.out.println();
             } else if (menu == 5) {
-
+                System.out.print("수정하고 싶은 단어를 입력하세요 -> ");
+                String find = bf.readLine();
+                crud.modifyManager(find.toUpperCase());
             } else if (menu == 6) {
                 System.out.print("삭제하고 싶은 단어를 입력하세요 -> ");
                 String find = bf.readLine();
