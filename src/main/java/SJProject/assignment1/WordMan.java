@@ -74,7 +74,9 @@ public class WordMan {
             } else if (menu == 5) {
 
             } else if (menu == 6) {
-
+                System.out.print("삭제하고 싶은 단어를 입력하세요 -> ");
+                String find = bf.readLine();
+                crud.deleteManager(find.toUpperCase());
             } else if (menu == 7) {
 
             }
