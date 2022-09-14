@@ -40,7 +40,7 @@ public class WordCRUD implements ICRUD {
 
         return 1;
     }
-
+    // level과 word를 분할 저장
     public void levelWord() throws IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         String newLW = bf.readLine();
@@ -49,7 +49,7 @@ public class WordCRUD implements ICRUD {
         createData[1] = temp[1]; // word 저장
         meaning();
     }
-
+    // 단어 뜻 저장
     public void meaning() throws IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         System.out.print("뜻 입력 : ");
@@ -100,7 +100,7 @@ public class WordCRUD implements ICRUD {
         }
         return findCheck;
     }
-
+    // 단어 수정을 지시하는 메니저
     public void modifyManager(String find) throws IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         int findCheck = 0, num = 1; // 검색한 단어를 찾으면 1로 값을 변환, 검색된 단어 순서
@@ -127,7 +127,7 @@ public class WordCRUD implements ICRUD {
             System.out.println("검색하신 단어가 존재하지 않습니다.\n");
     }
 
-    // 단어 정보를 실질적으로 삭제하는 작업자
+    // 단어 정보를 실질적으로 수정하는 작업자
     public void modifyWorker(int location, String find) throws IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         int num = 1; // 검색된 단어 순서
@@ -194,7 +194,7 @@ public class WordCRUD implements ICRUD {
         } else // 단어 삭제 철회
             System.out.println("선택한 단어 삭제를 취소하셨습니다.\n");
     }
-
+    // 단어 정보 "wordList.txt" 파일에 저장
     public void saveList() throws IOException {
         File file = new File("wordList.txt");
         BufferedWriter writer = null;
@@ -207,7 +207,7 @@ public class WordCRUD implements ICRUD {
             writer.write(getWordGroup().get(i).getWord());                   // 단어 기입
             writer.write("|");
             writer.write(getWordGroup().get(i).getDef());                    // 단어 의미 기입
-            writer.newLine();                                           // 행 전환
+            writer.newLine();                                                // 행 전환
         }
         writer.close();
     }

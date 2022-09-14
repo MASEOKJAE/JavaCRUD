@@ -6,11 +6,12 @@ import java.util.ArrayList;
 public class WordMan {
     public WordMan() {
     }
-    // 메뉴 리스트로 접근하게 해주는 메소드
+    // 파일 내 단어와 메뉴 리스트로 접근하게 해주는 메소드
     public void ManStart() throws IOException {
         loadfile();
         menuList();
     }
+    // "wordList.txt" 파일 내 단어 개수와 단어 정보들을 "wordGroup"객체에 세팅
     public void loadfile() throws IOException {
         int wordNum = 0; // 단어 개수 저장
         WordCRUD crud = new WordCRUD(); // WordCRUD 객체 "crud" 선언
