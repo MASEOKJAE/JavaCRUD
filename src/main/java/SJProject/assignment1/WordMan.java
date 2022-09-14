@@ -13,14 +13,22 @@ public class WordMan {
     }
     public void loadfile() throws IOException {
         int wordNum = 0; // 단어 개수 저장
+        WordCRUD crud = new WordCRUD(); // WordCRUD 객체 "crud" 선언
         File file = new File("wordList.txt");
+        BufferedReader inFile = new BufferedReader(new FileReader(file));
+
         if(file.exists()) {
-            BufferedReader inFile = new BufferedReader(new FileReader(file));
             String line = null;
-            while( (line = inFile.readLine()) != null )
+            while( (line = inFile.readLine()) != null ) {
+                // 파일 내 단어 정보(수준 / 단어 / 뜻) 저장
+                String[] fileInfo = line.split("\\|"); // "|" 정규표현식으로 인지되므로, "\\|" 이스케이프 처리
+                // 파일에서 가져온 단어 정보 ArrayList인 wordGroup에 저장
+                Word fData = new Word(Integer.parseInt(fileInfo[0]), fileInfo[1], fileInfo[2]); //
+                crud.getWordGroup().add(fData); // ArrayList "wordGroup"에 단어 정보 저장
                 wordNum++;
-//                System.out.println(line); //읽어들인 문자열을 출력 합니다.
+            }
         }
+        inFile.close();
         System.out.println("=> " + wordNum + "개의 단어 로딩이 완료되었습니다.\n");
     }
     // 새로운 단어를 업데이트하게 해주는 메소드

@@ -15,12 +15,20 @@ public class WordCRUD implements ICRUD {
         return createData;
     }
 
+    public static void setWordGroup(ArrayList<Word> wordGroup) {
+        WordCRUD.wordGroup = wordGroup;
+    }
+
+    public static ArrayList<Word> getWordGroup() {
+        return wordGroup;
+    }
+
     // Word class의 객체로 단어들을 관리
     public void addList() {
         String[] data = new String[3]; // 3가지 데이터 저장
         data = getCreatData();
         Word wData = new Word(Integer.parseInt(data[0]), data[1], data[2]); // Word Class에 단어 정보 객체로 저장
-        wordGroup.add(wData); // word 정보 입력 순서대로 객체로 저장
+        getWordGroup().add(wData); // word 정보 입력 순서대로 객체로 저장
     }
 
     // 새로운 단어 추가
@@ -51,28 +59,28 @@ public class WordCRUD implements ICRUD {
 
     // 단어장에 있는 모든 단어들
     public void listAll() {
-        for (int i = 0; i < wordGroup.size(); i++) {
-            int stars = wordGroup.get(i).getLevel();
+        for (int i = 0; i < getWordGroup().size(); i++) {
+            int stars = getWordGroup().get(i).getLevel();
             if (stars == 1)
                 System.out.print("*    ");
             else if (stars == 2)
                 System.out.print("**   ");
             else if (stars == 3)
                 System.out.print("***  ");
-            System.out.print(wordGroup.get(i).getWord() + "   ");
-            System.out.println(wordGroup.get(i).getDef());
+            System.out.print(getWordGroup().get(i).getWord() + "   ");
+            System.out.println(getWordGroup().get(i).getDef());
         }
     }
 
     // 선택한 수준으로 필터링 한 단어들
     public void listLevel(int level) {
-        for (int i = 0; i < wordGroup.size(); i++) {
-            int stars = wordGroup.get(i).getLevel();
+        for (int i = 0; i < getWordGroup().size(); i++) {
+            int stars = getWordGroup().get(i).getLevel();
             if (stars == level) { // 선택한 수준과 현재 순서의 단어의 수준이 같음
                 for (int j = 0; j < level; j++) // 수준만큼 *을 출력
                     System.out.print("*");
-                System.out.print("    " + wordGroup.get(i).getWord() + "   ");
-                System.out.println(wordGroup.get(i).getDef());
+                System.out.print("    " + getWordGroup().get(i).getWord() + "   ");
+                System.out.println(getWordGroup().get(i).getDef());
             }
         }
     }
@@ -80,13 +88,13 @@ public class WordCRUD implements ICRUD {
     // 검색한 단어를 찾는 메소드
     public int listFind(String find) {
         int findCheck = 0; // 검색한 단어를 찾으면 1로 값을 변
-        for (int i = 0; i < wordGroup.size(); i++) {
-            String wordNow = wordGroup.get(i).getWord();
+        for (int i = 0; i < getWordGroup().size(); i++) {
+            String wordNow = getWordGroup().get(i).getWord();
             if (wordNow.toUpperCase().contains(find)) { // 검색한 단어와 현재 단어가 같음
-                for (int j = 0; j < wordGroup.get(i).getLevel(); j++) // 수준만큼 *을 출력
+                for (int j = 0; j < getWordGroup().get(i).getLevel(); j++) // 수준만큼 *을 출력
                     System.out.print("*");
                 System.out.print("    " + wordNow + "   ");
-                System.out.println(wordGroup.get(i).getDef());
+                System.out.println(getWordGroup().get(i).getDef());
                 findCheck = 1; // 단어를 발견했으니 1로 변경
             }
         }
@@ -97,14 +105,14 @@ public class WordCRUD implements ICRUD {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         int findCheck = 0, num = 1; // 검색한 단어를 찾으면 1로 값을 변환, 검색된 단어 순서
         System.out.println("--------------------");
-        for (int i = 0; i < wordGroup.size(); i++) {
-            String wordNow = wordGroup.get(i).getWord();
+        for (int i = 0; i < getWordGroup().size(); i++) {
+            String wordNow = getWordGroup().get(i).getWord();
             if (wordNow.toUpperCase().contains(find)) { // 검색한 단어와 현재 단어가 같음
                 System.out.print(num + " "); // 저장된 순서대로 번호 출력
-                for (int j = 0; j < wordGroup.get(i).getLevel(); j++) // 수준만큼 *을 출력
+                for (int j = 0; j < getWordGroup().get(i).getLevel(); j++) // 수준만큼 *을 출력
                     System.out.print("*");
                 System.out.print("    " + wordNow + "   ");
-                System.out.println(wordGroup.get(i).getDef());
+                System.out.println(getWordGroup().get(i).getDef());
                 findCheck = 1; // 단어를 발견했으니 1로 변경
                 num++;
             }
@@ -123,13 +131,13 @@ public class WordCRUD implements ICRUD {
     public void modifyWorker(int location, String find) throws IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         int num = 1; // 검색된 단어 순서
-        for(int i = 0; i < wordGroup.size(); i++) {
-            String wordNow = wordGroup.get(i).getWord();
+        for(int i = 0; i < getWordGroup().size(); i++) {
+            String wordNow = getWordGroup().get(i).getWord();
             if (wordNow.toUpperCase().contains(find)) { // 검색한 단어와 현재 단어가 같음
                 if(num == location) {
                     System.out.print("수정할 뜻 입력: ");
                     String mdMean = bf.readLine(); // 수정할 뜻 mdMean에 입력
-                    wordGroup.get(i).setDef(mdMean); // 선택한 번호에 해당하는 단어 수정
+                    getWordGroup().get(i).setDef(mdMean); // 선택한 번호에 해당하는 단어 수정
                     System.out.println("선택한 단어 수정이 완료되었습니다.\n");
                     break;
                 }
@@ -144,14 +152,14 @@ public class WordCRUD implements ICRUD {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         int findCheck = 0, num = 1; // 검색한 단어를 찾으면 1로 값을 변환, 검색된 단어 순서
         System.out.println("--------------------");
-        for (int i = 0; i < wordGroup.size(); i++) {
-            String wordNow = wordGroup.get(i).getWord();
+        for (int i = 0; i < getWordGroup().size(); i++) {
+            String wordNow = getWordGroup().get(i).getWord();
             if (wordNow.toUpperCase().contains(find)) { // 검색한 단어와 현재 단어가 같음
                 System.out.print(num + " "); // 저장된 순서대로 번호 출력
-                for (int j = 0; j < wordGroup.get(i).getLevel(); j++) // 수준만큼 *을 출력
+                for (int j = 0; j < getWordGroup().get(i).getLevel(); j++) // 수준만큼 *을 출력
                     System.out.print("*");
                 System.out.print("    " + wordNow + "   ");
-                System.out.println(wordGroup.get(i).getDef());
+                System.out.println(getWordGroup().get(i).getDef());
                 findCheck = 1; // 단어를 발견했으니 1로 변경
                 num++;
             }
@@ -171,11 +179,11 @@ public class WordCRUD implements ICRUD {
     public void deleteWorker(int location, String find, String confirm) {
         int num = 1; // 검색된 단어 순서
         if(confirm.equals("Y")) { // 단어 삭제를 희망
-            for (int i = 0; i < wordGroup.size(); i++) {
-                String wordNow = wordGroup.get(i).getWord();
+            for (int i = 0; i < getWordGroup().size(); i++) {
+                String wordNow = getWordGroup().get(i).getWord();
                 if (wordNow.toUpperCase().contains(find)) { // 검색한 단어와 현재 단어가 같음
                     if(num == location) {
-                        wordGroup.remove(i); // 선택한 번호에 해당하는 단어 삭제
+                        getWordGroup().remove(i); // 선택한 번호에 해당하는 단어 삭제
                         System.out.println("선택한 단어 삭제가 완료되었습니다.\n");
                         break;
                     }
@@ -193,12 +201,12 @@ public class WordCRUD implements ICRUD {
         writer = new BufferedWriter(new FileWriter(file));
 
         // "wordList.txt" 단어장에 단어 기입하는 코드
-        for(int i=0; i<wordGroup.size(); i++) {
-            writer.write(Integer.toString(wordGroup.get(i).getLevel())); // 단어 수준 기입
+        for(int i=0; i<getWordGroup().size(); i++) {
+            writer.write(Integer.toString(getWordGroup().get(i).getLevel())); // 단어 수준 기입
             writer.write("|");
-            writer.write(wordGroup.get(i).getWord());                   // 단어 기입
+            writer.write(getWordGroup().get(i).getWord());                   // 단어 기입
             writer.write("|");
-            writer.write(wordGroup.get(i).getDef());                    // 단어 의미 기입
+            writer.write(getWordGroup().get(i).getDef());                    // 단어 의미 기입
             writer.newLine();                                           // 행 전환
         }
         writer.close();
