@@ -187,30 +187,20 @@ public class WordCRUD implements ICRUD {
             System.out.println("선택한 단어 삭제를 취소하셨습니다.\n");
     }
 
-    public void saveList() {
+    public void saveList() throws IOException {
         File file = new File("wordList.txt");
         BufferedWriter writer = null;
-        try {
-            writer = new BufferedWriter(new FileWriter(file));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        writer = new BufferedWriter(new FileWriter(file));
+
+        // "wordList.txt" 단어장에 단어 기입하는 코드
         for(int i=0; i<wordGroup.size(); i++) {
-            try {
-                writer.write(wordGroup.get(i).getLevel());
-                writer.write("|");
-                writer.write(wordGroup.get(i).getWord());
-                writer.write("|");
-                writer.write(wordGroup.get(i).getDef());
-                writer.newLine();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            writer.write(Integer.toString(wordGroup.get(i).getLevel())); // 단어 수준 기입
+            writer.write("|");
+            writer.write(wordGroup.get(i).getWord());                   // 단어 기입
+            writer.write("|");
+            writer.write(wordGroup.get(i).getDef());                    // 단어 의미 기입
+            writer.newLine();                                           // 행 전환
         }
-        try {
-            writer.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        writer.close();
     }
 }

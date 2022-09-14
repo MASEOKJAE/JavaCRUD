@@ -88,6 +88,7 @@ public class WordMan {
                 crud.deleteManager(find.toUpperCase());
             } else if (menu == 7) {
                 crud.saveList();
+                System.out.println("\"wordList.txt\" 단어장에 새로운 단어가 저장되었습니다.\n");
             }
         }
 
