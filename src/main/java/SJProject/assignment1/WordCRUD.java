@@ -59,7 +59,9 @@ public class WordCRUD implements ICRUD {
 
     // 단어장에 있는 모든 단어들
     public void listAll() {
+        int num = 1;
         for (int i = 0; i < getWordGroup().size(); i++) {
+            System.out.print(num + " "); // 저장된 순서대로 번호 출력
             int stars = getWordGroup().get(i).getLevel();
             if (stars == 1)
                 System.out.print("*    ");
@@ -69,33 +71,39 @@ public class WordCRUD implements ICRUD {
                 System.out.print("***  ");
             System.out.print(getWordGroup().get(i).getWord() + "   ");
             System.out.println(getWordGroup().get(i).getDef());
+            num++;
         }
     }
 
     // 선택한 수준으로 필터링 한 단어들
     public void listLevel(int level) {
+        int num = 1;
         for (int i = 0; i < getWordGroup().size(); i++) {
             int stars = getWordGroup().get(i).getLevel();
             if (stars == level) { // 선택한 수준과 현재 순서의 단어의 수준이 같음
+                System.out.print(num + " "); // 저장된 순서대로 번호 출력
                 for (int j = 0; j < level; j++) // 수준만큼 *을 출력
                     System.out.print("*");
                 System.out.print("    " + getWordGroup().get(i).getWord() + "   ");
                 System.out.println(getWordGroup().get(i).getDef());
+                num++;
             }
         }
     }
 
     // 검색한 단어를 찾는 메소드
     public int listFind(String find) {
-        int findCheck = 0; // 검색한 단어를 찾으면 1로 값을 변
+        int findCheck = 0,  num = 1;; // 검색한 단어를 찾으면 1로 값을 변
         for (int i = 0; i < getWordGroup().size(); i++) {
             String wordNow = getWordGroup().get(i).getWord();
             if (wordNow.toUpperCase().contains(find)) { // 검색한 단어와 현재 단어가 같음
+                System.out.print(num + " "); // 저장된 순서대로 번호 출력
                 for (int j = 0; j < getWordGroup().get(i).getLevel(); j++) // 수준만큼 *을 출력
                     System.out.print("*");
                 System.out.print("    " + wordNow + "   ");
                 System.out.println(getWordGroup().get(i).getDef());
                 findCheck = 1; // 단어를 발견했으니 1로 변경
+                num++;
             }
         }
         return findCheck;

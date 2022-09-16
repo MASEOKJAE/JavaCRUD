@@ -42,9 +42,9 @@ public class WordMan {
     public void menuList() throws IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         WordCRUD crud = new WordCRUD(); // wordCRUD 접근을 위한 객체 생성
+        System.out.println("*** 영단어 마스터 ***\n");
 
         while(true) {
-            System.out.println("*** 영단어 마스터 ***\n");
             System.out.println("********************");
             System.out.println("1. 모든 단어 보기");
             System.out.println("2. 수준별 단어 보기");
@@ -67,7 +67,7 @@ public class WordMan {
                 crud.listAll();
                 System.out.println("--------------------\n");
             } else if (menu == 2) {
-                System.out.print("원하는 수준을 입력하세요 -> ");
+                System.out.print("원하는 수준(1:초급, 2:중급, 3:고급)을 입력하세요 -> ");
                 int stars = Integer.parseInt(bf.readLine());
                 System.out.println("--------------------");
                 crud.listLevel(stars);
